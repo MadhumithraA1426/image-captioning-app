@@ -1,0 +1,108 @@
+/* Reset defaults */
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Soft solid background color (change as you want) */
+body {
+    background-color: #e7f0fd; /* pastel blue, e.g. #f0ede7 for ivory, #f7ffe7 for light yellow */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Center the content card */
+.container {
+    background: #fff;
+    padding: 32px 30px 26px 30px;
+    border-radius: 14px;
+    box-shadow: 0px 8px 36px rgba(0,0,0,0.10);
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    margin: 40px 0;
+}
+
+/* Header style */
+h1 {
+    color: #2980b9;
+    font-size: 2rem;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+}
+
+/* File input styling */
+input[type="file"] {
+    padding: 8px;
+    border: 2px dashed #3498db;
+    border-radius: 7px;
+    background: #f3f9ff;
+    margin-bottom: 8px;
+    width: 98%;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    background: linear-gradient(to right, #4ba3c7, #4286f4);
+    color: white;
+    padding: 10px 0;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: box-shadow 0.2s, background 0.3s;
+    box-shadow: 0px 2px 6px rgba(50,140,250,0.13);
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background: linear-gradient(to right, #4286f4, #4ba3c7);
+    box-shadow: 0px 2px 12px rgba(50,140,250,0.22);
+}
+
+/* Uploaded image preview */
+img {
+    max-width: 97%;
+    border-radius: 10px;
+    margin-top: 12px;
+    box-shadow: 0px 2px 8px rgba(44,62,80,0.08);
+}
+
+/* Caption box styling */
+.caption-box {
+    margin-top: 26px;
+    padding: 17px;
+    background: #f3f9ff;
+    border-radius: 10px;
+    border-left: 5px solid #2980b9;
+    box-shadow: 0 2px 9px rgba(44, 62, 80, 0.07);
+}
+.caption-box h2 {
+    color: #2980b9;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+/* Responsive mobile styles */
+@media (max-width: 500px) {
+    .container {
+        padding: 18px 7px;
+        max-width: 98vw;
+    }
+    h1 {
+        font-size: 1.2rem;
+    }
+    input[type="submit"] {
+        font-size: 0.98rem;
+    }
+}
