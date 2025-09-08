@@ -19,13 +19,9 @@ def index():
         if file.filename == "":
             return "No selected file", 400
         image = Image.open(file).convert("RGB")
-
         # Process and generate caption
         inputs = processor(image, return_tensors="pt")
         out = model.generate(**inputs)
         caption = processor.decode(out[0], skip_special_tokens=True)
         
     return render_template("index.html", caption=caption)
-
-if __name__ == "__main__":
-    app.run(debug=True)
