@@ -5,8 +5,8 @@ from transformers import BlipProcessor, BlipForConditionalGeneration
 import os  
 
 app = Flask(_name_)
-processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
-model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
+processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-small")
+model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-small")
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -29,3 +29,4 @@ def index():
 if _name_ == "_main_":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
