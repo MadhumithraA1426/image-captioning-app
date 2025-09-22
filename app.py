@@ -3,8 +3,9 @@ from PIL import Image
 import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration
 import os  
+app = Flask(__name__)
 
-app = Flask(_name_)
+# Load processor and model once (not on every request)
 processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-small")
 model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-small")
 
@@ -17,6 +18,8 @@ def index():
         file = request.files["image"]
         if file.filename == "":
             return "No selected file", 400
+
+        # Open image
         image = Image.open(file).convert("RGB")
 
         # Process and generate caption
@@ -29,5 +32,3 @@ def index():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-
-
