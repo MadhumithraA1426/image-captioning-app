@@ -2,10 +2,9 @@ from flask import Flask, render_template, request
 from PIL import Image
 import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration
+import os  
 
-app = Flask(__name__)
-
-# Load model and processor once
+app = Flask(_name_)
 processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
 model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 
@@ -27,5 +26,6 @@ def index():
         
     return render_template("index.html", caption=caption)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if _name_ == "_main_":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
