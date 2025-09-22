@@ -5,10 +5,16 @@ from transformers import BlipProcessor, BlipForConditionalGeneration
 import os  
 app = Flask(__name__)
 
-# Load processor and model once (not on every request)
-processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-small")
-model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-small")
+HF_TOKEN = os.environ.get("HUGGINGFACE_TOKEN")  # set this in Render
 
+processor = BlipProcessor.from_pretrained(
+    "Salesforce/blip-image-captioning-small", use_auth_token=HF_TOKEN
+)
+model = BlipForConditionalGeneration.from_pretrained(
+    "Salesforce/blip-image-captioning-small", use_auth_token=HF_TOKEN
+)
+
+# Load processor and model once (not on every request)
 @app.route("/", methods=["GET", "POST"])
 def index():
     caption = None
@@ -32,3 +38,4 @@ def index():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
