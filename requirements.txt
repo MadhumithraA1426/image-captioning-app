@@ -1,6 +1,5 @@
---extra-index-url https://download.pytorch.org/whl/cpu
-flask==3.0.3
-torch==2.2.2+cpu
-transformers==4.41.2
-pillow==10.4.0
-gunicorn==23.0.0
+flask
+pillow
+torch==2.5.1+cpu
+transformers==4.44.2
+gunicorn
