@@ -1,5 +1,6 @@
-flask==3.0.3
-pillow==10.4.0
-torch==2.5.1
-transformers==4.44.2
-gunicorn==23.0.0
+flask
+pillow
+torch
+transformers
+gunicorn
+
