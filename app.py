@@ -2,40 +2,39 @@ from flask import Flask, render_template, request
 from PIL import Image
 import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration
-import os  
+import os
+
 app = Flask(__name__)
 
-HF_TOKEN = os.environ.get("HUGGINGFACE_TOKEN")  # set this in Render
+# Initialize as None
+processor = None
+model = None
 
-processor = BlipProcessor.from_pretrained(
-    "Salesforce/blip-image-captioning-small", use_auth_token=HF_TOKEN
-)
-model = BlipForConditionalGeneration.from_pretrained(
-    "Salesforce/blip-image-captioning-small", use_auth_token=HF_TOKEN
-)
+HF_TOKEN = os.environ.get("HUGGINGFACE_TOKEN")
 
-# Load processor and model once (not on every request)
 @app.route("/", methods=["GET", "POST"])
 def index():
+    global processor, model
     caption = None
+
+    # Lazy load
+    if processor is None or model is None:
+        processor = BlipProcessor.from_pretrained(
+            "Salesforce/blip-image-captioning-small", use_auth_token=HF_TOKEN
+        )
+        model = BlipForConditionalGeneration.from_pretrained(
+            "Salesforce/blip-image-captioning-small", use_auth_token=HF_TOKEN
+        )
+
     if request.method == "POST":
         if "image" not in request.files:
             return "No file uploaded", 400
         file = request.files["image"]
         if file.filename == "":
             return "No selected file", 400
-
-        # Open image
         image = Image.open(file).convert("RGB")
-
-        # Process and generate caption
         inputs = processor(image, return_tensors="pt")
         out = model.generate(**inputs)
         caption = processor.decode(out[0], skip_special_tokens=True)
-        
+
     return render_template("index.html", caption=caption)
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
-
